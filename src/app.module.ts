@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -28,6 +29,13 @@ import { AiModule } from './modules/ai/ai.module';
       envFilePath: '.env',
     }),
 
+    // Rate limiting — protect public endpoints
+    ThrottlerModule.forRoot([{
+      name: 'default',
+      ttl: 60000,  // 1 minute window
+      limit: 120,    // max 120 requests per minute per IP
+    }]),
+
     // Database (Prisma)
     DatabaseModule,
 
@@ -54,6 +62,11 @@ import { AiModule } from './modules/ai/ai.module';
     AiModule,
   ],
   providers: [
+    // Global rate limiting (120 req/min per IP)
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
     // Global JWT guard — all routes require JWT by default
     // Use @Public() decorator to skip authentication
     {
