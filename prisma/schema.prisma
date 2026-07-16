@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Admin User ────────────────────────────────────────────
+model User {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(50)
+  user      String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  weight    String   @default("1") @db.VarChar(10)
+  email     String?  @db.VarChar(100)
+  imgs      String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── PC Frontend User ──────────────────────────────────────
+model PcUser {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  email     String   @unique @db.VarChar(100)
+  imgs      String?  @db.Text
+  username  String?  @db.VarChar(50)
+  type      Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pc_users")
+}
+
+// ─── Label / Tag ───────────────────────────────────────────
+model Label {
+  id        String   @id @default(uuid())
+  name      String   @unique @db.VarChar(50)
+  show      Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("labels")
+}
+
+// ─── Article / Text ────────────────────────────────────────
+model Article {
+  id           String   @id @default(uuid())
+  name         String   @db.VarChar(200)
+  introduction String   @db.Text
+  label        String   @db.VarChar(5000)
+  text         String   @db.LongText
+  show         Boolean  @default(true)
+  class        Int      @default(1)
+  weight       Int      @default(1)
+  read         Int      @default(0)
+  love         Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("articles")
+}
+
+// ─── Manual / Book ─────────────────────────────────────────
+model Manual {
+  id           String   @id @default(uuid())
+  name         String   @unique @db.VarChar(200)
+  imgs         String   @db.Text
+  introduction String   @db.Text
+  list         String   @default("[]") @db.VarChar(5000)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("manuals")
+}
+
+// ─── Message / Comment ─────────────────────────────────────
+model Message {
+  id        String    @id @default(uuid())
+  name      String    @db.VarChar(50)
+  username  String    @db.VarChar(50)
+  imgage    String?   @db.Text
+  value     String    @db.Text
+  type      String    @default("1") @db.VarChar(10)
+  adminmsg  String?   @db.Text
+  admindata DateTime?
+  state     Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("messages")
+}
+
+// ─── Project / Portfolio ───────────────────────────────────
+model Project {
+  id           String   @id @default(uuid())
+  name         String   @db.VarChar(200)
+  introduction String   @db.Text
+  urlname      String   @db.Text
+  github       String   @db.Text
+  icons        String   @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("projects")
+}
+
+// ─── Resume / Experience ───────────────────────────────────
+model Resume {
+  id           String   @id @default(uuid())
+  name         String   @db.VarChar(200)
+  introduction String   @db.Text
+  weight       Int
+  dataList     String   @default("[]") @db.VarChar(5000)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("resumes")
+}
+
+// ─── Site Settings (singleton, id always 1) ────────────────
+model Setting {
+  id            Int     @id @default(1)
+  imgs          String? @db.Text
+  github        String? @db.VarChar(500)
+  juejin        String? @db.VarChar(500)
+  name          String? @db.VarChar(50)
+  nameimgs      String? @db.Text
+  msgoffs       Boolean @default(true)
+  adminoffs     Boolean @default(true)
+  emailpassword String? @db.VarChar(255)
+  eamils        String? @db.VarChar(100)
+
+  @@map("settings")
+}

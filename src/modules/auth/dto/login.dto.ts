@@ -1,0 +1,15 @@
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+
+export class LoginDto {
+  @IsString()
+  @IsNotEmpty({ message: '用户名不能为空' })
+  user: string;
+
+  @IsString()
+  @IsNotEmpty({ message: '密码不能为空' })
+  password: string;
+
+  @IsOptional()
+  @IsString()
+  remember?: string; // 'true' for 7-day token
+}
