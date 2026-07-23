@@ -1,0 +1,1 @@
+import{r as t}from"./request-BdcBSS_L.js";const r={getPending(e){return t.get("/searchMsg",{params:e})},getProcessed(e){return t.get("/searchMsgPass",{params:e})},setState(e){return t.post("/setStateMsg",e)},reply(e){return t.post("/searchMsgReply",e)},delete(e){return t.post("/delateStateMsg",e)}};export{r as m};

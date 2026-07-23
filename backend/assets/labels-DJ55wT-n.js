@@ -1,0 +1,1 @@
+import{r as t}from"./request-BdcBSS_L.js";const l={getList(e){return t.get("/searchLabel",{params:e})},getAll(){return t.get("/searchAllLabel")},save(e){return t.post("/addlabel",e)},toggle(e){return t.post("/target",e)},delete(e){return t.post("/deleteLabel",e)}};export{l};

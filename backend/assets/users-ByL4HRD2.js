@@ -1,0 +1,1 @@
+import{r as t}from"./request-BdcBSS_L.js";const s={getAdminList(e){return t.get("/getUserList",{params:e})},deleteAdmin(e){return t.post("/deleteUsers",e)},getPcList(e){return t.get("/getPcUserList",{params:e})},deletePc(e){return t.post("/deletePcUsers",e)}};export{s as u};

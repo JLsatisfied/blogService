@@ -39,11 +39,17 @@ import { AiModule } from './modules/ai/ai.module';
     // Database (Prisma)
     DatabaseModule,
 
-    // Static file serving for legacy frontends (optional)
+    // Blog frontend (myblog) — served at /
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'build'),
       serveRoot: '/',
-      exclude: ['/admin/*', '/pc/*'],
+      exclude: ['/admin/*', '/pc/*', '/backend/*'],
+    }),
+
+    // Admin panel (zetaAdmin) — served at /backend
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'backend'),
+      serveRoot: '/backend',
     }),
 
     // Feature modules
