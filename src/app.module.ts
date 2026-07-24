@@ -26,7 +26,7 @@ import { AiModule } from './modules/ai/ai.module';
     // Environment configuration
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
     }),
 
     // Rate limiting — protect public endpoints
@@ -41,7 +41,7 @@ import { AiModule } from './modules/ai/ai.module';
 
     // Blog frontend (myblog) — served at /
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'build'),
+      rootPath: join(__dirname, '..', 'blogbuild'),
       serveRoot: '/',
       exclude: ['/admin/*', '/pc/*', '/backend/*'],
     }),

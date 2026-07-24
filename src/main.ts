@@ -48,7 +48,7 @@ async function bootstrap() {
       const f = join(distDir, 'backend', 'index.html');
       if (existsSync(f)) return res.sendFile(f);
     }
-    const f = join(distDir, 'build', 'index.html');
+    const f = join(distDir, 'blogbuild', 'index.html');
     if (existsSync(f)) return res.sendFile(f);
     next();
   });

@@ -7,15 +7,14 @@
   "license": "MIT",
   "scripts": {
     "build": "npx prisma generate && nest build",
-    "format": "prettier --write \"src/**/*.ts\"",
     "start": "nest start --watch",
-    "start:dev": "npx prisma db push --skip-generate && nest start --watch",
-    "start:debug": "npx prisma db push --skip-generate && nest start --debug --watch",
-    "start:prod": "npx prisma db push --skip-generate && node dist/main",
+    "start:dev": "dotenv -e .env.development -- npx prisma db push --skip-generate && cross-env NODE_ENV=development nest start --watch",
+    "start:debug": "dotenv -e .env.development -- npx prisma db push --skip-generate && cross-env NODE_ENV=development nest start --debug --watch",
+    "start:prod": "dotenv -e .env.production -- npx prisma db push --skip-generate && cross-env NODE_ENV=production pm2 start dist/main.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",
-    "prisma:push": "prisma db push",
-    "prisma:studio": "prisma studio"
+    "prisma:push": "dotenv -e .env.development -- npx prisma db push",
+    "prisma:studio": "dotenv -e .env.development -- npx prisma studio"
   },
   "dependencies": {
     "@nestjs/common": "^10.3.0",
@@ -45,6 +44,8 @@
     "@types/node": "^20.11.0",
     "@types/nodemailer": "^6.4.14",
     "@types/passport-jwt": "^4.0.0",
+    "cross-env": "^10.1.0",
+    "dotenv-cli": "^11.0.0",
     "prisma": "^5.8.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
