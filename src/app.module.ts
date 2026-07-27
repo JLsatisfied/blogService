@@ -26,7 +26,7 @@ import { AiModule } from './modules/ai/ai.module';
     // Environment configuration
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+      envFilePath: join(__dirname, '..', `.env.${process.env.NODE_ENV || 'development'}`),
     }),
 
     // Rate limiting — protect public endpoints
