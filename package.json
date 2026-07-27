@@ -10,7 +10,7 @@
     "start": "nest start --watch",
     "start:dev": "dotenv -e .env.development -- npx prisma db push --skip-generate && cross-env NODE_ENV=development nest start --watch",
     "start:debug": "dotenv -e .env.development -- npx prisma db push --skip-generate && cross-env NODE_ENV=development nest start --debug --watch",
-    "start:prod": "dotenv -e .env.production -- npx prisma db push --skip-generate && cross-env NODE_ENV=production pm2 start dist/main.js",
+    "start:prod": "dotenv -e .env.production -- npx prisma db push --skip-generate && dotenv -e .env.production -- cross-env NODE_ENV=production pm2 start dist/main.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:push": "dotenv -e .env.development -- npx prisma db push",
